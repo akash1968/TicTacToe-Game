@@ -4,14 +4,16 @@ using System.Runtime.InteropServices;
 namespace Tic_Tac_Toe_Workshop
 {
     public class Program
-    {
+    {       
         static void Main(string[] args)
         {
+            Program a = new Program();
             Console.WriteLine("Welcome to TicTacToe Game");
              char[] board = createBoard();
             showBoard(board);
+            a.FirstPlayToss();
+            int userMove = getUserMove(board);           
             char chooseLetter = chooseUserLetter();
-            int userMove = getUserMove(board);
             makeMove(board, userMove, chooseLetter);
                         showBoard(board);
         }
@@ -62,6 +64,37 @@ namespace Tic_Tac_Toe_Workshop
         {
             bool spaceFree = isSpaceFree(board, index);
             if (spaceFree) board[index] = letter;
+        }
+
+        //UC6_First Play Toss Using Coin
+        public void FirstPlayToss()
+        {
+            string choice = null;
+            bool val = true;
+            while (val)
+            {
+                Console.WriteLine("What will you choose -- heads(1)/tails(0)?");
+                choice = (Console.ReadLine());
+                if (choice[0].Equals('1') || choice[0].Equals('0'))
+                {
+                    val = false;
+                }
+                else
+                {
+                    Console.WriteLine("Please provide valid input(0/1).");
+                    val = true;
+                }
+            }
+            int choice2 = Convert.ToInt32(choice);      //coming out of the loop when the choice matches with that entered 
+            Random rn = new Random();                   //initialising random function
+            if (rn.Next(0, 2) == choice2)               //getting randomly 2 values and matches with the entered choice
+            {
+                Console.WriteLine("You got your desired side.So, will play first");
+            }
+            else
+            {
+                Console.WriteLine("Computer will play first");
+            }
         }
 
 
