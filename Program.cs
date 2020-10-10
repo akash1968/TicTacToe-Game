@@ -9,6 +9,7 @@ namespace Tic_Tac_Toe_Workshop
         {
             Console.WriteLine("Welcome to TicTacToe Game");
              char[] board = createBoard();
+            showBoard(board);
             char chooseLetter = chooseUserLetter();
         }
         //UC1_Create_Board
@@ -28,5 +29,15 @@ namespace Tic_Tac_Toe_Workshop
             string chooseLetter = Console.ReadLine();
             return char.ToUpper(chooseLetter[0]);
         }
+        //UC3_Show_Board
+        public static void showBoard(char[] board)
+        {
+            Console.WriteLine("\n " + board[1] + " | " + board[2] + " | " + board[3]);
+            Console.WriteLine("-------------");
+            Console.WriteLine("\n " + board[4] + " | " + board[5] + " | " + board[6]);
+            Console.WriteLine("-------------");
+            Console.WriteLine("\n " + board[7] + " | " + board[8] + " | " + board[9]);
+        }
+
     }
 }
