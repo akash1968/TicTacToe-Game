@@ -16,6 +16,7 @@ namespace Tic_Tac_Toe_Workshop
             char chooseLetter = chooseUserLetter();
             makeMove(board, userMove, chooseLetter);
                         showBoard(board);
+            Console.WriteLine("Check if Won: "+ isWinner(board,chooseLetter));
         }
         //UC1_Create_Board
         public static char[] createBoard()
@@ -95,6 +96,19 @@ namespace Tic_Tac_Toe_Workshop
             {
                 Console.WriteLine("Computer will play first");
             }
+        }
+        //UC7_Check Result After Every Move
+        public static bool isWinner(char[] b, char ch)
+        {
+            return ((b[1] == ch && b[2] == ch && b[3] == ch) || //across the top horizontal
+                (b[4] == ch && b[5] == ch && b[6] == ch) || //across the middle horizontal
+                (b[7] == ch && b[8] == ch && b[9] == ch) || //across the bottom horizontal
+                (b[1] == ch && b[4] == ch && b[7] == ch) || //across the left vertical
+                (b[2] == ch && b[5] == ch && b[8] == ch) || //across the middle vertical
+                (b[3] == ch && b[6] == ch && b[9] == ch) || //across the right vertical
+                (b[1] == ch && b[5] == ch && b[9] == ch) || //across the first diagonal
+                (b[7] == ch && b[5] == ch && b[3] == ch)); //across the second diagonal
+
         }
 
 
