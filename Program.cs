@@ -11,6 +11,8 @@ namespace Tic_Tac_Toe_Workshop
              char[] board = createBoard();
             showBoard(board);
             char chooseLetter = chooseUserLetter();
+            int userMove = getUserMove(board);
+                        showBoard(board);
         }
         //UC1_Create_Board
         public static char[] createBoard()
@@ -38,6 +40,23 @@ namespace Tic_Tac_Toe_Workshop
             Console.WriteLine("-------------");
             Console.WriteLine("\n " + board[7] + " | " + board[8] + " | " + board[9]);
         }
+        //UC4_User Make Move To Desired Location
+        public static int getUserMove(char[] board)
+        {
+            int[] validCells = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            while(true)
+            {
+                Console.WriteLine("Choose a position among 1 to 9");
+                int index = Convert.ToInt32(Console.ReadLine());
+                if (Array.Find<int>(validCells, element => element == index) != 0 && isSpaceFree(board, index))
+                    return index;
+            }
+        }
+        public static bool isSpaceFree(char[] board,int index)
+        {
+            return board[index] == ' ';
+        }
+
 
     }
 }
