@@ -12,6 +12,7 @@ namespace Tic_Tac_Toe_Workshop
             showBoard(board);
             char chooseLetter = chooseUserLetter();
             int userMove = getUserMove(board);
+            makeMove(board, userMove, chooseLetter);
                         showBoard(board);
         }
         //UC1_Create_Board
@@ -55,6 +56,12 @@ namespace Tic_Tac_Toe_Workshop
         public static bool isSpaceFree(char[] board,int index)
         {
             return board[index] == ' ';
+        }
+        //UC5_Check For Free Space On The Board
+        public static void makeMove(char[] board,int index,char letter)
+        {
+            bool spaceFree = isSpaceFree(board, index);
+            if (spaceFree) board[index] = letter;
         }
 
 
