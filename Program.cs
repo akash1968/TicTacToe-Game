@@ -115,13 +115,27 @@ namespace Tic_Tac_Toe_Workshop
                 (b[7] == ch && b[5] == ch && b[3] == ch)); //across the second diagonal
 
         }
-        //UC8_Computer Move and //UC9_Check if Opponent can win and Play To Block
+        //UC8_Computer Move and //UC9_Check if Opponent can win and Play To Block 
+        //UC10_Take Available Corners
         public static int getComputerMove(char[] board,char computerLetter,char chooseLetter)
         {
             int winningMove = getWinningMove(board, computerLetter);
             if (winningMove != 0) return winningMove;
             int userWinningMove = getWinningMove(board, chooseLetter);
             if (userWinningMove != 0) return userWinningMove;
+            int[] cornerMoves = { 1, 3, 7, 9 };
+            int computerMove = getRandomMoveFromList(board, cornerMoves);
+            if (computerMove != 0) return computerMove;
+            return 0;
+        }
+        //UC10_Take Available Corners
+        public static int getRandomMoveFromList(char[] board,int[] moves)
+        {
+            for(int index=0;index<moves.Length;index++)
+            {
+                if (isSpaceFree(board, moves[index]))
+                    return moves[index];
+            }
             return 0;
         }
         public static int getWinningMove(char[] board,char letter)
