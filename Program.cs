@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Linq;
 
 namespace Tic_Tac_Toe_Workshop
 {
@@ -16,6 +19,8 @@ namespace Tic_Tac_Toe_Workshop
             char chooseLetter = chooseUserLetter();
             makeMove(board, userMove, chooseLetter);
                         showBoard(board);
+            //Computer Move
+            int computerMove = getComputerMove(board,computerLetter);
             Console.WriteLine("Check if Won: "+ isWinner(board,chooseLetter));
         }
         //UC1_Create_Board
@@ -110,7 +115,33 @@ namespace Tic_Tac_Toe_Workshop
                 (b[7] == ch && b[5] == ch && b[3] == ch)); //across the second diagonal
 
         }
+        //UC8_Computer Move
+        public static int getComputerMove(char[] board,char computerLetter)
+        {
+            int winningMove = getWinningMove(board, computerLetter);
+            if (winningMove != 0) return winningMove;
+            return 0;
+        }
+        public static int getWinningMove(char[] board,char letter)
+        {for(int index=1;index<board.Length;index++)
+            {
+                char[] copyOfBoard = getCopyOfBoard(board);
+                if (isSpaceFree(copyOfBoard, index))
+                {
+                    makeMove(copyOfBoard, index, letter);
+                    if (isWinner(copyOfBoard, letter))
+                        return index;
+                }
+            }
+            return 0;
+        }
+        public static char[] getCopyOfBoard(char[] board)
+        {
+            char[] boardCopy = new char[10];
+             System.arraycopy(board, srcPos:0, boardCopy, destPos:0, board.Length);
+            return boardCopy;
 
+        }
 
     }
 }
