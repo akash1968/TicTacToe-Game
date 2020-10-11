@@ -20,7 +20,7 @@ namespace Tic_Tac_Toe_Workshop
             makeMove(board, userMove, chooseLetter);
                         showBoard(board);
             //Computer Move
-            int computerMove = getComputerMove(board,computerLetter);
+            int computerMove = getComputerMove(board,computerLetter,chooseLetter);
             Console.WriteLine("Check if Won: "+ isWinner(board,chooseLetter));
         }
         //UC1_Create_Board
@@ -115,11 +115,13 @@ namespace Tic_Tac_Toe_Workshop
                 (b[7] == ch && b[5] == ch && b[3] == ch)); //across the second diagonal
 
         }
-        //UC8_Computer Move
-        public static int getComputerMove(char[] board,char computerLetter)
+        //UC8_Computer Move and //UC9_Check if Opponent can win and Play To Block
+        public static int getComputerMove(char[] board,char computerLetter,char chooseLetter)
         {
             int winningMove = getWinningMove(board, computerLetter);
             if (winningMove != 0) return winningMove;
+            int userWinningMove = getWinningMove(board, chooseLetter);
+            if (userWinningMove != 0) return userWinningMove;
             return 0;
         }
         public static int getWinningMove(char[] board,char letter)
@@ -129,7 +131,7 @@ namespace Tic_Tac_Toe_Workshop
                 if (isSpaceFree(copyOfBoard, index))
                 {
                     makeMove(copyOfBoard, index, letter);
-                    if (isWinner(copyOfBoard, letter))
+                    if (isWinner(board, letter))
                         return index;
                 }
             }
@@ -142,6 +144,8 @@ namespace Tic_Tac_Toe_Workshop
             return boardCopy;
 
         }
+        
+        
 
     }
 }
