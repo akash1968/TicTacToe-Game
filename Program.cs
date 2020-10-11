@@ -17,11 +17,12 @@ namespace Tic_Tac_Toe_Workshop
             a.FirstPlayToss();
             int userMove = getUserMove(board);           
             char chooseLetter = chooseUserLetter();
+            char computerLetter = (chooseLetter == 'X') ? 'O' : 'X';            
             makeMove(board, userMove, chooseLetter);
                         showBoard(board);
             //Computer Move
+            Console.WriteLine("Check if Won: " + isWinner(board, chooseLetter));
             int computerMove = getComputerMove(board,computerLetter,chooseLetter);
-            Console.WriteLine("Check if Won: "+ isWinner(board,chooseLetter));
         }
         //UC1_Create_Board
         public static char[] createBoard()
@@ -115,17 +116,28 @@ namespace Tic_Tac_Toe_Workshop
                 (b[7] == ch && b[5] == ch && b[3] == ch)); //across the second diagonal
 
         }
-        //UC8_Computer Move and //UC9_Check if Opponent can win and Play To Block 
+        //UC8_Computer Move 
+        //UC9_Check if Opponent can win and Play To Block 
         //UC10_Take Available Corners
+        //UC11_Subsequent_Choices
         public static int getComputerMove(char[] board,char computerLetter,char chooseLetter)
         {
             int winningMove = getWinningMove(board, computerLetter);
-            if (winningMove != 0) return winningMove;
+            if (winningMove != 0) 
+                return winningMove;
             int userWinningMove = getWinningMove(board, chooseLetter);
-            if (userWinningMove != 0) return userWinningMove;
+            if (userWinningMove != 0)
+                return userWinningMove;
             int[] cornerMoves = { 1, 3, 7, 9 };
             int computerMove = getRandomMoveFromList(board, cornerMoves);
-            if (computerMove != 0) return computerMove;
+            if (computerMove != 0)
+                return computerMove;
+            if (isSpaceFree(board, 5))
+                return 5;             //center move
+            int[] sideMoves = { 2, 4, 6, 8 };
+            computerMove = getRandomMoveFromList(board, sideMoves);
+            if (computerMove != 0)
+                return computerMove;
             return 0;
         }
         //UC10_Take Available Corners
@@ -154,7 +166,7 @@ namespace Tic_Tac_Toe_Workshop
         public static char[] getCopyOfBoard(char[] board)
         {
             char[] boardCopy = new char[10];
-             System.arraycopy(board, srcPos:0, boardCopy, destPos:0, board.Length);
+            Array.Copy(board, srcPos:0, boardCopy, destPos:0, board.Length);
             return boardCopy;
 
         }
